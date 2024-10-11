@@ -8,7 +8,7 @@ WORKDIR $bin
 COPY . .
 
 WORKDIR $bin/extendexpof
-RUN cp runeef.m run_ef.m eef.m multiscaleBlendingColor.m remapFun.m robustNormalization.m image_registration.sh composeHomographies.m exposureFusion $bin
+RUN cp runeef.m run_ef.m eef.m multiscaleBlendingColor.m remapFun.m robustNormalization.m image_registration.sh composeHomographies.m -r exposureFusion $bin
 
 WORKDIR $bin/Midway_src
 RUN make
