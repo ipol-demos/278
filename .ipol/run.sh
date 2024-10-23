@@ -102,8 +102,8 @@ fi
 IFS=$IFSSAVE
 
 ### call script with its parameters
-echo "octave -W -qf run_ef.m $PARAM_EF ${FLAMOD[@]}"
-echo "octave -W -qf runeef.m $PARAMEEF ${FLAMOD[@]}"
+echo "octave -W -qf $bin/extendexpof/run_ef.m $PARAM_EF ${FLAMOD[@]}"
+echo "octave -W -qf $bin/extendexpof/runeef.m $PARAMEEF ${FLAMOD[@]}"
 echo ""
 TIME=$(date +%s)
 ### with IPOL this is a bit more complicated.
@@ -113,8 +113,8 @@ CURP=$(pwd)
 ### prepend $IMGP to all images (in $FLA)
 # FLA=( "${FLA[@]/#/$IMGP/}" )
 FLAMOD=( "${FLAMOD[@]/#/$CURP/}" )
-CMD1=$(echo "(octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
-CMD2=$(echo "(octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
+CMD1=$(echo "(octave -W -qf $bin/extendexpof/run_ef.m $PARAM_EF ""${FLAMOD[@]})")
+CMD2=$(echo "(octave -W -qf $bin/extendexpof/runeef.m $PARAMEEF ""${FLAMOD[@]})")
 parallel ::: "$CMD1" "$CMD2"
 mv *.png algo_info.txt .  # recup the generated files
 TIMEFUSION=$(($(date +%s) - $TIME))
