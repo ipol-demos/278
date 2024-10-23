@@ -13,7 +13,7 @@ fi
 set -e
 
 ### get binaries path
-BIN="$1"
+bin="$1"
 shift
 
 ### get value for regristration option
@@ -77,7 +77,7 @@ if [ $NB == 1 ]; then # fusing a sequence of only one image causes an error
 fi
 
 ### give number of images to IPOL demo system
-echo "nb_outputs_ef=$NB" > ${BIN}/algo_info.txt
+echo "nb_outputs_ef=$NB" > ${bin}/algo_info.txt
 
 ### resize large images (avoid "timeout", generally due to the registration)
 mogrify -resize "1200x900>" "${FLAMOD[@]}"
@@ -111,10 +111,10 @@ CURP=$(pwd)
 ### prepend $IMGP to all images (in $FLA)
 # FLA=( "${FLA[@]/#/$IMGP/}" )
 FLAMOD=( "${FLAMOD[@]/#/$CURP/}" )
-CMD1=$(echo "(cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
-CMD2=$(echo "(cd ${BIN} && octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
+CMD1=$(echo "(cd ${bin} && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
+CMD2=$(echo "(cd ${bin} && octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
 parallel ::: "$CMD1" "$CMD2"
-mv ${BIN}/*.png ${BIN}/algo_info.txt .  # recup the generated files
+mv ${bin}/*.png ${bin}/algo_info.txt .  # recup the generated files
 TIMEFUSION=$(($(date +%s) - $TIME))
 
 ### display recap on computation times
