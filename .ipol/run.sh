@@ -76,10 +76,10 @@ if [ $NB == 1 ]; then # fusing a sequence of only one image causes an error
   exit 0
 fi
 
-touch /workdir/bin/algo_info.txt
-sudo chmod +w ${bin}/algo_info.txt
+#touch /workdir/bin/algo_info.txt
+#sudo chmod +w ${bin}/algo_info.txt
 ### give number of images to IPOL demo system
-echo "nb_outputs_ef=$NB" > ${bin}/algo_info.txt
+echo "nb_outputs_ef=$NB" > algo_info.txt
 
 ### resize large images (avoid "timeout", generally due to the registration)
 mogrify -resize "1200x900>" "${FLAMOD[@]}"
