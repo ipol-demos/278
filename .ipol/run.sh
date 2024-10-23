@@ -116,7 +116,7 @@ FLAMOD=( "${FLAMOD[@]/#/$CURP/}" )
 CMD1=$(echo "(octave -W -qf $bin/extendexpof/run_ef.m $PARAM_EF ""${FLAMOD[@]})")
 CMD2=$(echo "(octave -W -qf $bin/extendexpof/runeef.m $PARAMEEF ""${FLAMOD[@]})")
 parallel ::: "$CMD1" "$CMD2"
-mv *.png algo_info.txt .  # recup the generated files
+#mv *.png algo_info.txt .  # recup the generated files
 TIMEFUSION=$(($(date +%s) - $TIME))
 
 ### display recap on computation times
