@@ -77,7 +77,7 @@ if [ $NB == 1 ]; then # fusing a sequence of only one image causes an error
 fi
 
 touch /workdir/bin/algo_info.txt
-chmod +w ${bin}/algo_info.txt
+sudo chmod +w ${bin}/algo_info.txt
 ### give number of images to IPOL demo system
 echo "nb_outputs_ef=$NB" > ${bin}/algo_info.txt
 
