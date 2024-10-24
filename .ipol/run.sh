@@ -60,7 +60,7 @@ FILENUM=0
 FLAMOD=() # File List Array Modified (with standard file names)
 for FILE in ${FLA[@]}; do
   FILEEXT="${FILE##*.}" # get extension
-  FILENEW="${UNPACKED}/img${FILENUM}.${FILEEXT}" # new (standardised) file name
+  FILENEW="${UNPACKED}/input_${FILENUM}.${FILEEXT}" # new (standardised) file name
   mv -v "${FILE}" "${FILENEW}" # move file and print to stdout
   FLAMOD[${FILENUM}]=${FILENEW} # add moved file to array
   FILENUM=$((FILENUM + 1)) # increment
@@ -99,19 +99,6 @@ fi
 ### IFS takes its value back for the following
 IFS=$IFSSAVE
 
-filename="run_ef.m"
-# Use find command to locate the file and echo its content
-found_file=$(find "$search_dir" -type f -name "$filename")
-
-# Check if the file is found
-if [[ -n "$found_file" ]]; then
-  echo "File found: $found_file"
-  echo "Contents of the file:"
-  cat "$found_file"
-else
-  echo "File not found!"
-fi
-
 ### call script with its parameters
 echo "octave -W -qf run_ef.m $PARAM_EF ${FLAMOD[@]}"
 echo "octave -W -qf runeef.m $PARAMEEF ${FLAMOD[@]}"
@@ -124,6 +111,10 @@ CURP=$(pwd)
 ### prepend $IMGP to all images (in $FLA)
 # FLA=( "${FLA[@]/#/$IMGP/}" )
 FLAMOD=( "${FLAMOD[@]/#/$CURP/}" )
+
+#*****************print FLAMOD value now
+echo $FLAMOD
+
 CMD1=$(echo "(cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
 CMD2=$(echo "(cd ${BIN} && octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
 parallel ::: "$CMD1" "$CMD2"
