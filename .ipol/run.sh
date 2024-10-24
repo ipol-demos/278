@@ -77,7 +77,7 @@ if [ $NB == 1 ]; then # fusing a sequence of only one image causes an error
 fi
 
 ### give number of images to IPOL demo system
-echo "nb_outputs_ef=$NB" > ${BIN}/algo_info.txt
+echo "nb_outputs_ef=$NB" > algo_info.txt
 
 ### resize large images (avoid "timeout", generally due to the registration)
 mogrify -resize "1200x900>" "${FLAMOD[@]}"
