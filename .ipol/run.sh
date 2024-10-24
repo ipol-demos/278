@@ -99,6 +99,19 @@ fi
 ### IFS takes its value back for the following
 IFS=$IFSSAVE
 
+filename="run_ef.m"
+# Use find command to locate the file and echo its content
+found_file=$(find "$search_dir" -type f -name "$filename")
+
+# Check if the file is found
+if [[ -n "$found_file" ]]; then
+  echo "File found: $found_file"
+  echo "Contents of the file:"
+  cat "$found_file"
+else
+  echo "File not found!"
+fi
+
 ### call script with its parameters
 echo "octave -W -qf run_ef.m $PARAM_EF ${FLAMOD[@]}"
 echo "octave -W -qf runeef.m $PARAMEEF ${FLAMOD[@]}"
