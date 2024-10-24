@@ -13,8 +13,8 @@ fi
 set -e
 
 ### get binaries path
-BIN="$1"
-shift
+#BIN="$1"
+#shift
 
 ### get value for regristration option
 REGISTRATION="$1"
