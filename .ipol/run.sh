@@ -65,7 +65,7 @@ for FILE in ${FLA[@]}; do
   FLAMOD[${FILENUM}]=${FILENEW} # add moved file to array
 
   #jyotsna code
-  Check if the file is a .jpg and convert to .png
+  #Check if the file is a .jpg and convert to .png
   if [[ "$FILEEXT" == "jpg" ]]; then
       PNGFILE="${UNPACKED}/input_${FILENUM}.png" # new .png file name 
       magick "${FILENEW}" "${PNGFILE}" # convert to .png 
