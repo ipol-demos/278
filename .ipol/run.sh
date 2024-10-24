@@ -70,10 +70,10 @@ for FILE in ${FLA[@]}; do
       PNGFILE="${UNPACKED}/input_${FILENUM}.png" # new .png file name 
       convert "${FILENEW}" "${PNGFILE}" # convert to .png 
       # After successful conversion, move .png file to current folder 
-      mv -v "${PNGFILE}" "./input_${FILENUM}.png" 
-      FLAMOD[${FILENUM}]="./input_${FILENUM}.png" # update array with .png file in current folder 
+      mv -v "${PNGFILE}" "input_${FILENUM}.png" 
+      FLAMOD[${FILENUM}]="input_${FILENUM}.png" # update array with .png file in current folder 
       rm -v "${FILENEW}" # remove original .jpg file after conversion (optional) 
-      FLAMOD[${FILENUM}]="./input_${FILENUM}.png" # update array with .png file
+      FLAMOD[${FILENUM}]="input_${FILENUM}.png" # update array with .png file
       echo $FLAMOD[${FILENUM}]
   fi
   FILENUM=$((FILENUM + 1)) # increment
