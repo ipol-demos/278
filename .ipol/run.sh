@@ -68,7 +68,7 @@ for FILE in ${FLA[@]}; do
   #Check if the file is a .jpg and convert to .png
   if [[ "$FILEEXT" == "jpg" ]]; then
       PNGFILE="${UNPACKED}/input_${FILENUM}.png" # new .png file name 
-      magick "${FILENEW}" "${PNGFILE}" # convert to .png 
+      convert "${FILENEW}" "${PNGFILE}" # convert to .png 
       FLAMOD[${FILENUM}]="${PNGFILE}" # update array with .png file 
   fi
 

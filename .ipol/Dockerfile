@@ -39,5 +39,5 @@ ENV HOME /home/ipol
 RUN groupadd -g 1000 ipol && useradd -m -u 1000 -g 1000 ipol -d $HOME && chmod -R 777 $HOME
 RUN apt-get update && apt-get install -y octave liboctave-dev
 RUN octave --eval "pkg install -forge image" && octave --eval "pkg load image"
-RUN apt-get update && apt-get install -y parallel && apt-get install -y imagemagick
+RUN apt-get update && apt-get install -y parallel && apt-get install -y imagemagick && apt-get install -y libmagick++-dev
 USER ipol
