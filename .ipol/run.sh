@@ -13,7 +13,7 @@ fi
 set -e
 
 ### get binaries path
-bin="$1"
+BIN="$1"
 shift
 
 ### get value for regristration option
@@ -76,9 +76,8 @@ if [ $NB == 1 ]; then # fusing a sequence of only one image causes an error
   exit 0
 fi
 
-
 ### give number of images to IPOL demo system
-echo "nb_outputs_ef=$NB" > algo_info.txt
+echo "nb_outputs_ef=$NB" > ${BIN}/algo_info.txt
 
 ### resize large images (avoid "timeout", generally due to the registration)
 mogrify -resize "1200x900>" "${FLAMOD[@]}"
@@ -101,8 +100,8 @@ fi
 IFS=$IFSSAVE
 
 ### call script with its parameters
-echo "octave -W -qf $bin/extendexpof/run_ef.m $PARAM_EF ${FLAMOD[@]}"
-echo "octave -W -qf $bin/extendexpof/runeef.m $PARAMEEF ${FLAMOD[@]}"
+echo "octave -W -qf run_ef.m $PARAM_EF ${FLAMOD[@]}"
+echo "octave -W -qf runeef.m $PARAMEEF ${FLAMOD[@]}"
 echo ""
 TIME=$(date +%s)
 ### with IPOL this is a bit more complicated.
@@ -112,10 +111,10 @@ CURP=$(pwd)
 ### prepend $IMGP to all images (in $FLA)
 # FLA=( "${FLA[@]/#/$IMGP/}" )
 FLAMOD=( "${FLAMOD[@]/#/$CURP/}" )
-CMD1=$(echo "(octave -W -qf $bin/extendexpof/run_ef.m $PARAM_EF ""${FLAMOD[@]})")
-CMD2=$(echo "(octave -W -qf $bin/extendexpof/runeef.m $PARAMEEF ""${FLAMOD[@]})")
+CMD1=$(echo "(cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
+CMD2=$(echo "(cd ${BIN} && octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
 parallel ::: "$CMD1" "$CMD2"
-mv *.png .  # recup the generated files
+mv ${BIN}/*.png ${BIN}/algo_info.txt .  # recup the generated files
 TIMEFUSION=$(($(date +%s) - $TIME))
 
 ### display recap on computation times
