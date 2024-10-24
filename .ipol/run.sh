@@ -128,10 +128,10 @@ FLAMOD=( "${FLAMOD[@]/#/$CURP/}" )
 #*****************print FLAMOD value now
 echo $FLAMOD
 
-CMD1=$(echo "(octave -W -qf $bin/run_ef.m $PARAM_EF ""${FLAMOD[@]})")
-CMD2=$(echo "(octave -W -qf $bin/runeef.m $PARAMEEF ""${FLAMOD[@]})")
+CMD1=$(echo "(cd /workdir/exec/ && octave -W -qf $bin/run_ef.m $PARAM_EF ""${FLAMOD[@]})")
+CMD2=$(echo "(cd /workdir/exec/ && octave -W -qf $bin/runeef.m $PARAMEEF ""${FLAMOD[@]})")
 parallel ::: "$CMD1" "$CMD2"
-mv /workdir/exec/*.png /workdir/exec/algo_info.txt .  # recup the generated files
+#mv /workdir/exec/*.png /workdir/exec/algo_info.txt .  # recup the generated files
 TIMEFUSION=$(($(date +%s) - $TIME))
 
 ### display recap on computation times
