@@ -63,6 +63,15 @@ for FILE in ${FLA[@]}; do
   FILENEW="${UNPACKED}/input_${FILENUM}.${FILEEXT}" # new (standardised) file name
   mv -v "${FILE}" "${FILENEW}" # move file and print to stdout
   FLAMOD[${FILENUM}]=${FILENEW} # add moved file to array
+
+  #jyotsna code
+  Check if the file is a .jpg and convert to .png
+  if [[ "$FILEEXT" == "jpg" ]]; then
+      PNGFILE="${UNPACKED}/input_${FILENUM}.png" # new .png file name 
+      magick "${FILENEW}" "${PNGFILE}" # convert to .png 
+      FLAMOD[${FILENUM}]="${PNGFILE}" # update array with .png file 
+  fi
+
   FILENUM=$((FILENUM + 1)) # increment
 done
 
