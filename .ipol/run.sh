@@ -60,7 +60,7 @@ FILENUM=0
 FLAMOD=() # File List Array Modified (with standard file names)
 for FILE in ${FLA[@]}; do
   FILEEXT="${FILE##*.}" # get extension
-  FILENEW="${UNPACKED}/input_${FILENUM}.${FILEEXT}" # new (standardised) file name
+  FILENEW="${UNPACKED}/input_${FILENUM}.png" # new (standardised) file name
   mv -v "${FILE}" "${FILENEW}" # move file and print to stdout
   FLAMOD[${FILENUM}]=${FILENEW} # add moved file to array
   FILENUM=$((FILENUM + 1)) # increment
