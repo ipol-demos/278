@@ -13,8 +13,8 @@ fi
 set -e
 
 ### get binaries path
-#BIN="$1"
-#shift
+BIN="$1"
+shift
 
 ### get value for regristration option
 REGISTRATION="$1"
@@ -63,19 +63,6 @@ for FILE in ${FLA[@]}; do
   FILENEW="${UNPACKED}/img${FILENUM}.${FILEEXT}" # new (standardised) file name
   mv -v "${FILE}" "${FILENEW}" # move file and print to stdout
   FLAMOD[${FILENUM}]=${FILENEW} # add moved file to array
-
-  #jyotsna code
-  #Check if the file is a .jpg and convert to .png
-  if [[ "$FILEEXT" == "jpg" ]]; then
-      PNGFILE="${UNPACKED}/input_${FILENUM}.png" # new .png file name 
-      convert "${FILENEW}" "${PNGFILE}" # convert to .png 
-      # After successful conversion, move .png file to current folder 
-      mv -v "${PNGFILE}" "input_${FILENUM}.png" 
-      FLAMOD[${FILENUM}]="input_${FILENUM}.png" # update array with .png file in current folder 
-      rm -v "${FILENEW}" # remove original .jpg file after conversion (optional) 
-      FLAMOD[${FILENUM}]="input_${FILENUM}.png" # update array with .png file
-      echo $FLAMOD[${FILENUM}]
-  fi
   FILENUM=$((FILENUM + 1)) # increment
 done
 
@@ -90,7 +77,7 @@ if [ $NB == 1 ]; then # fusing a sequence of only one image causes an error
 fi
 
 ### give number of images to IPOL demo system
-echo "nb_outputs_ef=$NB" > algo_info.txt
+echo "nb_outputs_ef=$NB" > ${BIN}/algo_info.txt
 
 ### resize large images (avoid "timeout", generally due to the registration)
 mogrify -resize "1200x900>" "${FLAMOD[@]}"
@@ -124,15 +111,10 @@ CURP=$(pwd)
 ### prepend $IMGP to all images (in $FLA)
 # FLA=( "${FLA[@]/#/$IMGP/}" )
 FLAMOD=( "${FLAMOD[@]/#/$CURP/}" )
-
-#*****************print FLAMOD value now
-echo $FLAMOD
-echo ${FLAMOD[@]}
-
-#CMD1=$(echo "(octave -W -qf $bin/run_ef.m $PARAM_EF ""${FLAMOD[@]})")
-#CMD2=$(echo "(octave -W -qf $bin/runeef.m $PARAMEEF ""${FLAMOD[@]})")
-#parallel ::: "$CMD1" "$CMD2"
-#mv /workdir/exec/*.png /workdir/exec/algo_info.txt .  # recup the generated files
+CMD1=$(echo "(cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
+CMD2=$(echo "(cd ${BIN} && octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
+parallel ::: "$CMD1" "$CMD2"
+mv ${BIN}/*.png ${BIN}/algo_info.txt .  # recup the generated files
 TIMEFUSION=$(($(date +%s) - $TIME))
 
 ### display recap on computation times
