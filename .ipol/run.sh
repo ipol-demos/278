@@ -55,7 +55,7 @@ NB=${#FLA[@]}   # counts number of elements in FLA, i.e., the number of inputs
 
 ### rename and move images
 UNPACKED="unpacked"
-mkdir $UNPACKED
+mkdir -p $UNPACKED
 FILENUM=0
 FLAMOD=() # File List Array Modified (with standard file names)
 for FILE in ${FLA[@]}; do
@@ -63,6 +63,21 @@ for FILE in ${FLA[@]}; do
   FILENEW="${UNPACKED}/img${FILENUM}.${FILEEXT}" # new (standardised) file name
   mv -v "${FILE}" "${FILENEW}" # move file and print to stdout
   FLAMOD[${FILENUM}]=${FILENEW} # add moved file to array
+
+  #jyotsna code
+  #Check if the file is a .jpg and convert to .png
+  if [[ "$FILEEXT" == "jpg" ]]; then
+      PNGFILE="input_${FILENUM}.png" # new .png file name 
+      convert "${FILENEW}" "${PNGFILE}" # convert to .png 
+      # After successful conversion, move .png file to current folder 
+      #mv -v "${PNGFILE}" "input_${FILENUM}.png" 
+      #FLAMOD[${FILENUM}]="input_${FILENUM}.png" # update array with .png file in current folder 
+      if [[ $? -eq 0 ]]; then
+        rm -v "${FILENEW}" # remove original .jpg file after conversion (optional) 
+        FLAMOD[${FILENUM}]="${PNGFILE}" # update array with .png file
+      fi
+  fi
+  echo "Processed: ${FLAMOD[${FILENUM}]}" #print processed file
   FILENUM=$((FILENUM + 1)) # increment
 done
 
@@ -77,7 +92,7 @@ if [ $NB == 1 ]; then # fusing a sequence of only one image causes an error
 fi
 
 ### give number of images to IPOL demo system
-echo "nb_outputs_ef=$NB" > ${BIN}/algo_info.txt
+echo "nb_outputs_ef=$NB" > algo_info.txt
 
 ### resize large images (avoid "timeout", generally due to the registration)
 mogrify -resize "1200x900>" "${FLAMOD[@]}"
