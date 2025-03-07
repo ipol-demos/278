@@ -54,8 +54,8 @@ FLA=($FILELIST) # convert to array (based on new IFS)
 NB=${#FLA[@]}   # counts number of elements in FLA, i.e., the number of inputs
 
 ### rename and move images
-#UNPACKED="unpacked"
-#mkdir $UNPACKED
+UNPACKED="unpacked"
+mkdir $UNPACKED
 FILENUM=0
 FLAMOD=() # File List Array Modified (with standard file names)
 for FILE in ${FLA[@]}; do
