@@ -124,10 +124,11 @@ CURP=$(pwd)
 # FLA=( "${FLA[@]/#/$IMGP/}" )
 FLAMOD=( "${FLAMOD[@]/#/$CURP/}" )
 echo "it's reaching this point"
-CMD1=$(echo "(cd /workdir/bin && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
-CMD2=$(echo "(cd /workdir/bin && octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
-parallel ::: "$CMD1" "$CMD2"
-mv ${BIN}/*.png ${BIN}/algo_info.txt .  # recup the generated files
+octave -W -qf run_ef.m "$PARAM_EF" "${FLAMOD[@]}"
+#CMD1=$(echo "(cd /workdir/bin && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
+#CMD2=$(echo "(cd /workdir/bin && octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
+#parallel ::: "$CMD1" "$CMD2"
+#mv ${BIN}/*.png ${BIN}/algo_info.txt .  # recup the generated files
 TIMEFUSION=$(($(date +%s) - $TIME))
 
 ### display recap on computation times
