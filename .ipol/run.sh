@@ -123,6 +123,7 @@ CURP=$(pwd)
 ### prepend $IMGP to all images (in $FLA)
 # FLA=( "${FLA[@]/#/$IMGP/}" )
 FLAMOD=( "${FLAMOD[@]/#/$CURP/}" )
+echo "it's reaching this point"
 CMD1=$(echo "(cd /workdir/bin && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
 CMD2=$(echo "(cd /workdir/bin && octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
 parallel ::: "$CMD1" "$CMD2"
