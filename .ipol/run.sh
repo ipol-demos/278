@@ -60,10 +60,21 @@ FILENUM=0
 FLAMOD=() # File List Array Modified (with standard file names)
 for FILE in ${FLA[@]}; do
   FILEEXT="${FILE##*.}" # get extension
-  FILENEW="$input_${FILENUM}.png" # new (standardised) file name
-  cp -v "${FILE}" "${FILENEW}" # copy file and print to stdout
-  #mv -v "${FILE}" "${FILENEW}" # move file and print to stdout
+  FILENEW="${UNPACKED}/img${FILENUM}.${FILEEXT}" # new (standardised) file name
+  mv -v "${FILE}" "${FILENEW}" # move file and print to stdout
   FLAMOD[${FILENUM}]=${FILENEW} # add moved file to array
+
+  #Check if the file is a .jpg and convert to .png
+  if [[ "$FILEEXT" == "jpg" ]]; then
+      PNGFILE="${UNPACKED}/input_${FILENUM}.png" # new .png file name 
+      convert "${FILENEW}" "${PNGFILE}" # convert to .png 
+      # After successful conversion, move .png file to current folder 
+      mv -v "${PNGFILE}" "input_${FILENUM}.png" 
+      FLAMOD[${FILENUM}]="input_${FILENUM}.png" # update array with .png file in current folder 
+      #rm -v "${FILENEW}" # remove original .jpg file after conversion (optional) 
+      FLAMOD[${FILENUM}]="input_${FILENUM}.png" # update array with .png file
+      echo ${FLAMOD[${FILENUM}]}
+  fi
   FILENUM=$((FILENUM + 1)) # increment
 done
 
