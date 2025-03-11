@@ -123,6 +123,19 @@ CURP=$(pwd)
 ### prepend $IMGP to all images (in $FLA)
 # FLA=( "${FLA[@]/#/$IMGP/}" )
 FLAMOD=( "${FLAMOD[@]/#/$CURP/}" )
+
+if [[ -r input_0.png]]; then
+  echo "file is readable"
+else
+  echo "file not readable"
+fi
+
+if identify "input_0.png" >/dev/null 2>&1; then
+  echo "image is readable by imagemagick"
+else
+  echo "image is not redable by imagemagick"
+fi
+
 CMD1=$(echo "(cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
 CMD2=$(echo "(cd ${BIN} && octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
 parallel ::: "$CMD1" "$CMD2"
