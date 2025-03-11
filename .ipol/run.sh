@@ -136,8 +136,7 @@ else
   echo "image is not redable by imagemagick"
 fi
 
-IMAGE_NAME = "input_0.png"
-INFO=$(identify -format "Format: %m/nDimensions: %w×%h/nSize: %b/n" "$IMAGE_NAME")
+INFO=$(identify -format "Format: %m/nDimensions: %w×%h/nSize: %b/n" input_0.png)
 echo INFO
 
 CMD1=$(echo "(cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
