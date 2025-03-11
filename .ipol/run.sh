@@ -124,7 +124,7 @@ CURP=$(pwd)
 # FLA=( "${FLA[@]/#/$IMGP/}" )
 FLAMOD=( "${FLAMOD[@]/#/$CURP/}" )
 
-if [[ -r input_0.png]]; then
+if [ -r input_0.png ]; then
   echo "file is readable"
 else
   echo "file not readable"
