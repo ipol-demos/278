@@ -127,7 +127,7 @@ echo "it's reaching point A"
 
 #octave -W -qf /workdir/bin/run_ef.m 1 1 0 "${FLAMOD[@]}"
 
-CMD1=$(octave -W -qf /workdir/bin/run_ef.m "$PARAM_EF" "${FLAMOD[@]}")
+CMD1=$(octave -W -qf /workdir/bin/run_ef.m $PARAM_EF "${FLAMOD[@]}")
 
 echo "it's reaching point B"
 
