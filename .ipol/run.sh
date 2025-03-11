@@ -139,7 +139,7 @@ fi
 INFO=$(identify -format "Format: %m/nDimensions: %w×%h/nSize: %b/n" input_0.png)
 echo "$INFO"
 
-CMD1=$(echo "(cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
+CMD1=$(octave -W -qf ${BIN}/run_ef.m $PARAM_EF "${FLAMOD[@]}")
 CMD2=$(echo "(cd ${BIN} && octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
 parallel ::: "$CMD1" "$CMD2"
 mv ${BIN}/*.png ${BIN}/algo_info.txt .  # recup the generated files
