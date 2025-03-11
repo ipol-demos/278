@@ -136,6 +136,10 @@ else
   echo "image is not redable by imagemagick"
 fi
 
+IMAGE_NAME = "input_0.png"
+INFO=$(identify -format "Format: %m/nDimensions: %w×%h/nSize: %b/n" "$IMAGE_NAME")
+echo INFO
+
 CMD1=$(echo "(cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
 CMD2=$(echo "(cd ${BIN} && octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
 parallel ::: "$CMD1" "$CMD2"
