@@ -139,13 +139,13 @@ fi
 INFO=$(identify -format "Format: %m/nDimensions: %w×%h/nSize: %b/n" input_0.png)
 echo "$INFO"
 
-CMD1=$(octave -W -qf ${BIN}/run_ef.m $PARAM_EF "${FLAMOD[@]}")
+#CMD1=$(octave -W -qf ${BIN}/run_ef.m $PARAM_EF "${FLAMOD[@]}")
 #CMD2=$(cd ${BIN} && octave -W -qf runeef.m $PARAMEEF "${FLAMOD[@]}")
 
 cp ${BIN}/run_ef.m /workdir/exec/
 cp -r ${BIN}/exposureFusion /workdir/exec/
 cp ${BIN}/robustNormalization.m  /workdir/exec/
-octave -W -qf run_ef.m 1 1 0 input_0.png input_1.png input_2.png input_3.png
+octave -W -qf run_ef.m 1 1 0 ${FLAMOD[@]}
 
 #parallel ::: "$CMD1" "$CMD2"
 #mv ${BIN}/*.png ${BIN}/ .  # recup the generated files
