@@ -124,7 +124,9 @@ CURP=$(pwd)
 # FLA=( "${FLA[@]/#/$IMGP/}" )
 FLAMOD=( "${FLAMOD[@]/#/$CURP/}" )
 echo "it's reaching this point"
-cd /workdir/exec && octave -W -qf /workdir/bin/run_ef.m "$PARAM_EF" "${FLAMOD[@]}"
+
+octave -W -qf /workdir/bin/run_ef.m 1 1 0 "${FLAMOD[@]}"
+
 #CMD1=$(echo "(cd /workdir/bin && octave -W -qf run_ef.m $PARAM_EF ""${FLAMOD[@]})")
 #CMD2=$(echo "(cd /workdir/bin && octave -W -qf runeef.m $PARAMEEF ""${FLAMOD[@]})")
 #parallel ::: "$CMD1" "$CMD2"
