@@ -147,7 +147,7 @@ echo "$INFO"
 #cp ${BIN}/robustNormalization.m  /workdir/exec/
 #cp ${BIN}/* /workdir/exec/
 #octave -W -qf run_ef.m $PARAM_EF ${FLAMOD[@]}
-octave -W -qf ${BIN}/runeef.m $PARAMEEF ${FLAMOD[@]}
+cd ${BIN} && octave -W -qf runeef.m $PARAMEEF /workdir/exec/${FLAMOD[@]}
 cp ${BIN}/*.png /workdir/exec/
 
 #parallel ::: "$CMD1" "$CMD2"
