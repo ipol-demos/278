@@ -147,8 +147,10 @@ echo "$INFO"
 #cp ${BIN}/robustNormalization.m  /workdir/exec/
 #cp ${BIN}/* /workdir/exec/
 #octave -W -qf run_ef.m $PARAM_EF ${FLAMOD[@]}
-cd ${BIN} && octave -W -qf runeef.m $PARAMEEF /workdir/exec/${FLAMOD[@]}
-cp ${BIN}/*.png /workdir/exec/
+cd ${BIN} && octave -W -qf runeef.m $PARAMEEF ${FLAMOD[@]}
+echo "Files inside bin"
+ls -l ${BIN}
+#cp ${BIN}/*.png /workdir/exec/
 
 #parallel ::: "$CMD1" "$CMD2"
 #mv ${BIN}/*.png ${BIN}/ .  # recup the generated files
