@@ -145,13 +145,9 @@ echo "$INFO"
 #cp ${BIN}/run_ef.m /workdir/exec/${BIN}
 #cp -r ${BIN}/exposureFusion /workdir/exec/
 #cp ${BIN}/robustNormalization.m  /workdir/exec/
-#cp ${BIN}/* /workdir/exec/
-#octave -W -qf run_ef.m $PARAM_EF ${FLAMOD[@]}
-echo "Files inside bin at point A"
-ls -l ${BIN}
-octave -W -qf ${BIN}/run_ef.m $PARAM_EF input_0.png input_1.png input_2.png input_3.png
-echo "Files inside bin at point B"
-ls -l ${BIN}
+cp ${BIN}/* ${BIN}/
+cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF ../${FLAMOD[@]}
+
 #cp ${BIN}/*.png /workdir/exec/
 
 #parallel ::: "$CMD1" "$CMD2"
