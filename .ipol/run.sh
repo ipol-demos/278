@@ -147,8 +147,10 @@ echo "$INFO"
 #cp ${BIN}/robustNormalization.m  /workdir/exec/
 #cp ${BIN}/* /workdir/exec/
 #octave -W -qf run_ef.m $PARAM_EF ${FLAMOD[@]}
-cd ${BIN} && octave -W -qf runeef.m $PARAMEEF ${FLAMOD[@]}
-echo "Files inside bin"
+echo "Files inside bin at point A"
+ls -l ${BIN}
+cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF ${FLAMOD[@]}
+echo "Files inside bin at point B"
 ls -l ${BIN}
 #cp ${BIN}/*.png /workdir/exec/
 
