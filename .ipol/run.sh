@@ -149,7 +149,7 @@ echo "$INFO"
 #octave -W -qf run_ef.m $PARAM_EF ${FLAMOD[@]}
 echo "Files inside bin at point A"
 ls -l ${BIN}
-cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF ${FLAMOD[@]}
+octave -W -qf ${BIN}/run_ef.m $PARAM_EF ${FLAMOD[@]}
 echo "Files inside bin at point B"
 ls -l ${BIN}
 #cp ${BIN}/*.png /workdir/exec/
