@@ -146,7 +146,7 @@ echo "$INFO"
 #cp -r ${BIN}/exposureFusion /workdir/exec/
 #cp ${BIN}/robustNormalization.m  /workdir/exec/
 mkdir /workdir/exec/bin
-cp -r ${BIN}/* /bin
+cp -r ${BIN}/* /workdir/exec/bin
 cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF ${FLAMOD[@]}
 
 #cp ${BIN}/*.png /workdir/exec/
