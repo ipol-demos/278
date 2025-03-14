@@ -147,7 +147,7 @@ echo "$INFO"
 #cp ${BIN}/robustNormalization.m  /workdir/exec/
 mkdir /workdir/exec/bin
 cp -r ${BIN}/* /workdir/exec/bin
-octave -W -qf /workdir/exec/bin/run_ef.m $PARAM_EF input_0.png input_1.png input_2.png input_3.png
+cd ${BIN} && octave -W -qf run_ef.m $PARAM_EF input_0.png input_1.png input_2.png input_3.png
 #cp ${BIN}/*.png /workdir/exec/
 
 #parallel ::: "$CMD1" "$CMD2"
