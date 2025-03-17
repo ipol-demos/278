@@ -47,6 +47,6 @@ RUN octave --version
     #octave --eval "pkg load image"  
 #RUN octave --eval "disp(version)"
 RUN octave --eval "pkg list"
-#RUN octave --eval "pkg install -forge -verbose image" && octave --eval "pkg load image"
+#RUN octave --eval "pkg install image" && octave --eval "pkg load image"
 #RUN apt-get update && apt-get install -y parallel && apt-get install -y imagemagick && apt-get install -y libmagick++-dev
 USER ipol
