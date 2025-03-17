@@ -37,10 +37,12 @@ ENV PATH $bin:$PATH
 ENV HOME /home/ipol
 # chmod 777 so that any user can use the HOME, in case the docker is run with -u 1001:1001
 RUN groupadd -g 1000 ipol && useradd -m -u 1000 -g 1000 ipol -d $HOME && chmod -R 777 $HOME
+#check debian version
+RUN cat /etc/os-release
 RUN apt-get update && apt-get install -y octave
 RUN octave --version
 #RUN octave --eval "disp(version)"
-#RUN octave --eval "pkg install -forge image" && octave --eval "pkg load image"
+RUN octave --eval "pkg install -forge image" && octave --eval "pkg load image"
 #RUN octave --version
 #RUN apt-get update && apt-get install -y parallel && apt-get install -y imagemagick && apt-get install -y libmagick++-dev
 USER ipol
