@@ -42,6 +42,7 @@ RUN cat /etc/os-release
 RUN apt-get update && apt-get install -y octave
 RUN which octave
 RUN whereis octave
+RUN octave --no-gui
 RUN octave --version
 #RUN wget -O image-2.12.0.tar.gz https://packages.octave.org/download/image-2.12.0.tar.gz && \ 
     #octave --eval "pkg install image-2.12.0.tar.gz" && \ 
@@ -50,7 +51,7 @@ RUN octave --version
 #RUN octave --eval "disp(version)"
 RUN $OCTAVE_PATH
 RUN octave --eval "pkg list"
-RUN octave --eval "pkg install image" && octave --eval "pkg load image"
-#RUN octave --eval "pkg install -forge image" && octave --eval "pkg load image"
+#RUN octave --eval "pkg install image" && octave --eval "pkg load image"
+RUN octave --eval "pkg install -forge image" && octave --eval "pkg load image"
 #RUN apt-get update && apt-get install -y parallel && apt-get install -y imagemagick && apt-get install -y libmagick++-dev
 USER ipol
