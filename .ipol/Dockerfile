@@ -46,6 +46,7 @@ RUN octave --version
     #rm image-2.12.0.tar.gz && \ 
     #octave --eval "pkg load image"  
 #RUN octave --eval "disp(version)"
+RUN $OCTAVE_PATH
 RUN octave --eval "pkg list"
 RUN octave --eval "pkg install image-2.12.0.tar.gz" && octave --eval "pkg load image"
 #RUN octave --eval "pkg install image" && octave --eval "pkg load image"
