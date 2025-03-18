@@ -5,6 +5,24 @@ RUN octave --eval "pkg install -forge image" && octave --eval "pkg load image"
 # use one of the images from this repository: https://github.com/centreborelli/ipol-docker-images/
 FROM registry.ipol.im/ipol:v1-py3.9
 
+# Install dependencies required to compile GLIBC
+RUN apt-get update && apt-get install -y build-essential manpages-dev wget
+
+# Download and install GLIBC 2.38
+RUN wget http://ftp.gnu.org/gnu/libc/glibc-2.38.tar.gz && \
+    tar -xvzf glibc-2.38.tar.gz && \
+    cd glibc-2.38 && \
+    mkdir build && cd build && \
+    ../configure --prefix=/usr/local/glibc-2.38 && \
+    make -j$(nproc) && make install && \
+    echo "/usr/local/glibc-2.38/lib" > /etc/ld.so.conf.d/glibc-2.38.conf && \
+    ldconfig
+
+# Set the new GLIBC as default
+ENV LD_LIBRARY_PATH=/usr/local/glibc-2.38/lib:$LD_LIBRARY_PATH
+
+COPY --from=octave-stage /usr /usr
+
 # copy the code to $bin
 #ENV bin /workdir/bin
 ENV bin=/workdir/bin
@@ -14,10 +32,9 @@ COPY . .
 
 RUN apt-get update && apt-get install -y libc6
 
-#COPY --from=octave-stage /usr /usr
-COPY --from=octave-stage /usr/local /usr/local
-COPY --from=octave-stage /usr/lib /usr/lib
-COPY --from=octave-stage /usr/share /usr/share
+#COPY --from=octave-stage /usr/local /usr/local
+#COPY --from=octave-stage /usr/lib /usr/lib
+#COPY --from=octave-stage /usr/share /usr/share
 
 WORKDIR $bin/extendexpof
 RUN apt-get update && apt-get install -y build-essential cmake
