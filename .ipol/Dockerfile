@@ -37,21 +37,6 @@ ENV PATH $bin:$PATH
 ENV HOME /home/ipol
 # chmod 777 so that any user can use the HOME, in case the docker is run with -u 1001:1001
 RUN groupadd -g 1000 ipol && useradd -m -u 1000 -g 1000 ipol -d $HOME && chmod -R 777 $HOME
-#check debian version
-RUN cat /etc/os-release
-RUN apt-get update && apt-get install -y octave
-RUN which octave
-RUN whereis octave
-RUN octave --no-gui
-RUN octave --version
-#RUN wget -O image-2.12.0.tar.gz https://packages.octave.org/download/image-2.12.0.tar.gz && \ 
-    #octave --eval "pkg install image-2.12.0.tar.gz" && \ 
-    #rm image-2.12.0.tar.gz && \ 
-    #octave --eval "pkg load image"  
-#RUN octave --eval "disp(version)"
-RUN $OCTAVE_PATH
-RUN octave --eval "pkg list"
-#RUN octave --eval "pkg install image" && octave --eval "pkg load image"
+RUN FROM gnuoctave/octave:latest
 RUN octave --eval "pkg install -forge image" && octave --eval "pkg load image"
-#RUN apt-get update && apt-get install -y parallel && apt-get install -y imagemagick && apt-get install -y libmagick++-dev
 USER ipol
