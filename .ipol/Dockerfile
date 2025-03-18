@@ -5,15 +5,15 @@ RUN octave --eval "pkg install -forge image" && octave --eval "pkg load image"
 # use one of the images from this repository: https://github.com/centreborelli/ipol-docker-images/
 FROM registry.ipol.im/ipol:v1-py3.9
 
-COPY --from=octave-stage /usr /usr
-
-RUN apt-get update && apt-get install -y libc6
-
 # copy the code to $bin
-ENV bin /workdir/bin
+#ENV bin /workdir/bin
+ENV bin=/workdir/bin
 RUN mkdir -p $bin
 WORKDIR $bin
 COPY . .
+
+COPY --from=octave-stage /usr /usr
+
 
 WORKDIR $bin/extendexpof
 RUN cp runeef.m run_ef.m eef.m multiscaleBlendingColor.m remapFun.m robustNormalization.m image_registration.sh composeHomographies.m -r exposureFusion $bin
