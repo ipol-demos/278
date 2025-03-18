@@ -12,6 +12,8 @@ RUN mkdir -p $bin
 WORKDIR $bin
 COPY . .
 
+RUN apt-get update && apt-get install -y libc6
+
 #COPY --from=octave-stage /usr /usr
 COPY --from=octave-stage /usr/local /usr/local
 COPY --from=octave-stage /usr/lib /usr/lib
