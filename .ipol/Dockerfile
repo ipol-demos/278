@@ -19,9 +19,8 @@ COPY --from=octave-stage /usr/local /usr/local
 COPY --from=octave-stage /usr/lib /usr/lib
 COPY --from=octave-stage /usr/share /usr/share
 
-#RUN apt-get update && apt-get install -y build-essential cmake
-
 WORKDIR $bin/extendexpof
+RUN apt-get update && apt-get install -y build-essential cmake
 RUN cp runeef.m run_ef.m eef.m multiscaleBlendingColor.m remapFun.m robustNormalization.m image_registration.sh composeHomographies.m -r exposureFusion $bin
 
 WORKDIR $bin/Midway_src
