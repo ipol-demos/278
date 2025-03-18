@@ -1,5 +1,11 @@
+FROM gnuoctave/octave:latest AS octave-stage
+RUN octave --version
+RUN octave --eval "pkg install -forge image" && octave --eval "pkg load image"
+
 # use one of the images from this repository: https://github.com/centreborelli/ipol-docker-images/
 FROM registry.ipol.im/ipol:v1-py3.9
+
+COPY --from=octave-stage /usr /usr
 
 # copy the code to $bin
 ENV bin /workdir/bin
@@ -37,7 +43,4 @@ ENV PATH $bin:$PATH
 ENV HOME /home/ipol
 # chmod 777 so that any user can use the HOME, in case the docker is run with -u 1001:1001
 RUN groupadd -g 1000 ipol && useradd -m -u 1000 -g 1000 ipol -d $HOME && chmod -R 777 $HOME
-FROM gnuoctave/octave:latest
-RUN octave --version
-RUN octave --eval "pkg install -forge image" && octave --eval "pkg load image"
 USER ipol
