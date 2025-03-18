@@ -7,6 +7,8 @@ FROM registry.ipol.im/ipol:v1-py3.9
 
 COPY --from=octave-stage /usr /usr
 
+RUN apt-get update && apt-get install -y libc6
+
 # copy the code to $bin
 ENV bin /workdir/bin
 RUN mkdir -p $bin
